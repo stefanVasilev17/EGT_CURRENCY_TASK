@@ -23,8 +23,8 @@ public class DeadLetterConsumer {
         String body = new String(message.getBody(), StandardCharsets.UTF_8);
         Map<String, Object> headers = message.getMessageProperties().getHeaders();
 
-        log.error("🪦 Received message from DLQ!");
-        log.error("🪦 Headers: {}", headers);
-        log.error("🪦 Body: {}", body);
+        log.error("Received message from DLQ!");
+        log.error("Headers: {}", headers);
+        log.error("Body: {}", body);
     }
 }
