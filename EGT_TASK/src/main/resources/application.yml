@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+fixer:
+  api:
+    key: 2fd45421948e442bb0b26efb9f32d300
+    url: https://data.fixer.io/api/latest
+    base-currency: EUR
+schedule:
+  update-interval: 1800000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/currency_db
+    username: myuser
+    password: secret
+    driver-class-name: org.postgresql.Driver
+  mvc:
+    converters:
+      preferred-json-mapper: jackson
+    media-types:
+      xml: application/xml
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  redis:
+    host: ${SPRING_REDIS_HOST:redis}
+    port: ${SPRING_REDIS_PORT:6379}
+    time-to-live: 600000
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
+rabbitmq:
+  exchange: request_stats_exchange
+  queue: request_stats_queue
+  routingKey: request_stats_routing_key
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
